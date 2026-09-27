@@ -56,6 +56,11 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
 a {
   color: var(--accent);
   text-decoration: none;
@@ -108,13 +113,90 @@ h1, h2, h3 {
 }
 
 .site-nav nav a {
+  position: relative;
   color: var(--ink-soft);
   font-size: 15px;
+  border-bottom: none;
+}
+
+.site-nav nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s var(--ease);
+}
+
+.site-nav nav a:hover::after,
+.site-nav nav a:focus-visible::after,
+.site-nav nav a.active::after {
+  transform: scaleX(1);
 }
 
 .site-nav nav a.active {
   color: var(--accent);
-  border-color: var(--accent);
+}
+
+.nav-preview {
+  position: relative;
+  display: inline-flex;
+}
+
+.preview-card {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  width: 240px;
+  padding: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 14px 28px color-mix(in srgb, var(--ink) 16%, transparent);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+  z-index: 20;
+}
+
+.nav-preview:hover .preview-card,
+.nav-preview:focus-within .preview-card {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.preview-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.preview-name {
+  margin: 0 0 2px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.preview-desc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--ink-soft);
 }
 
 .theme-toggle {
@@ -278,6 +360,16 @@ h1, h2, h3 {
   max-width: 1040px;
   margin: 0 auto 40px;
   font-size: 28px;
+}
+
+.featured h2::before,
+.other-work h2::before,
+.contact h2::before {
+  content: '> ';
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--accent);
 }
 
 .project-row {

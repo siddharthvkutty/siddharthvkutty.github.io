@@ -81,3 +81,32 @@ if (sectionLinks.length && 'IntersectionObserver' in window) {
     if (section) spy.observe(section);
   });
 }
+
+(function () {
+  const githubPreview = document.querySelector('#preview-github');
+  const githubTrigger = githubPreview && githubPreview.closest('.nav-preview');
+  if (!githubPreview || !githubTrigger) return;
+
+  let loaded = false;
+
+  function loadGithubPreview() {
+    if (loaded) return;
+    loaded = true;
+
+    fetch('https://api.github.com/users/siddharthvkutty')
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((data) => {
+        const avatar = githubPreview.querySelector('.preview-avatar');
+        const desc = githubPreview.querySelector('.preview-desc');
+        if (data.avatar_url) avatar.src = `${data.avatar_url}&s=80`;
+        if (desc) desc.textContent = `${data.public_repos} repositories · ${data.followers} followers`;
+      })
+      .catch(() => {
+        const desc = githubPreview.querySelector('.preview-desc');
+        if (desc) desc.textContent = 'View repositories on GitHub';
+      });
+  }
+
+  githubTrigger.addEventListener('mouseenter', loadGithubPreview);
+  githubTrigger.addEventListener('focusin', loadGithubPreview);
+})();
