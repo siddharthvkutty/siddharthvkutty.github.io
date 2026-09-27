@@ -11,6 +11,17 @@
   --font-mono: 'IBM Plex Mono', monospace;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111315;
+    --bg-alt: #17191c;
+    --ink: #e9e7e2;
+    --ink-soft: #9aa0a6;
+    --accent: #8ea1e8;
+    --line: #2a2d31;
+  }
+}
+
 * { box-sizing: border-box; }
 
 html {
@@ -107,6 +118,8 @@ h1, h2, h3 {
 .hero h1 {
   font-size: clamp(40px, 6vw, 64px);
   font-style: italic;
+  line-height: 1.2;
+  padding-bottom: 0.1em;
   opacity: 0;
   transform: translateY(8px);
   animation: rise 0.7s ease-out 0.1s forwards;
@@ -121,6 +134,17 @@ h1, h2, h3 {
 
 @keyframes rise {
   to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal-pending {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .hero-focus {
@@ -181,6 +205,15 @@ h1, h2, h3 {
   grid-template-columns: 2.2fr 1fr;
   gap: 32px;
   align-items: start;
+  transition: transform 0.2s ease;
+}
+
+.project-row:hover {
+  transform: translateX(4px);
+}
+
+.project-row:hover h3 {
+  color: var(--accent);
 }
 
 .project-row:last-child {
@@ -190,6 +223,7 @@ h1, h2, h3 {
 .project-main h3 {
   font-size: 22px;
   margin-bottom: 10px;
+  transition: color 0.2s ease;
 }
 
 .project-main p {
@@ -231,6 +265,16 @@ h1, h2, h3 {
   white-space: nowrap;
 }
 
+.repo-link::after {
+  content: ' \2192';
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.repo-link:hover::after {
+  transform: translateX(3px);
+}
+
 /* ---------- Other projects ---------- */
 
 .other-work {
@@ -261,6 +305,11 @@ h1, h2, h3 {
   font-family: var(--font-mono);
   font-size: 14.5px;
   color: var(--ink);
+  transition: color 0.15s ease;
+}
+
+.index-list a:hover {
+  color: var(--accent);
 }
 
 .index-list span {
