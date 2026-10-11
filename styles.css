@@ -26,6 +26,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 72px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -96,6 +97,19 @@ h1, h2, h3 {
   max-width: 1040px;
   margin: 0 auto;
   padding: 28px 24px 0;
+}
+
+@media (min-width: 721px) {
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    max-width: none;
+    padding: 18px max(24px, calc((100% - 1040px) / 2 + 24px));
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
 }
 
 .wordmark {
@@ -245,12 +259,26 @@ h1, h2, h3 {
 /* ---------- Hero ---------- */
 
 .hero {
+  position: relative;
+  isolation: isolate;
   max-width: 1040px;
   margin: 0 auto;
   padding: 90px 24px 100px;
   display: flex;
   flex-direction: column;
   gap: 44px;
+}
+
+.globe {
+  position: absolute;
+  z-index: -1;
+  top: 20px;
+  right: 0;
+  width: 560px;
+  aspect-ratio: 1;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to right, transparent 10%, #000 55%);
+  mask-image: linear-gradient(to right, transparent 10%, #000 55%);
 }
 
 .identity {
@@ -264,7 +292,9 @@ h1, h2, h3 {
   height: 268px;
   object-fit: cover;
   border-radius: 10px;
-  border: 1px solid var(--line);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+  outline: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  outline-offset: 6px;
   flex-shrink: 0;
 }
 
@@ -283,7 +313,7 @@ h1, h2, h3 {
 }
 
 .hero h1 {
-  font-size: clamp(40px, 6vw, 64px);
+  font-size: clamp(40px, 7.5vw, 84px);
   font-style: italic;
   line-height: 1.2;
   padding-bottom: 0.1em;
@@ -357,23 +387,13 @@ h1, h2, h3 {
 .featured h2,
 .other-work h2,
 .contact h2 {
-  max-width: 1040px;
+  max-width: 992px;
   margin: 0 auto 40px;
   font-size: 28px;
 }
 
-.featured h2::before,
-.other-work h2::before,
-.contact h2::before {
-  content: '> ';
-  font-family: var(--font-mono);
-  font-style: normal;
-  font-weight: 400;
-  color: var(--accent);
-}
-
 .project-row {
-  max-width: 1040px;
+  max-width: 992px;
   margin: 0 auto;
   padding: 32px 0;
   border-top: 1px solid var(--line);
@@ -535,6 +555,12 @@ h1, h2, h3 {
     gap: 32px;
   }
 
+  .globe {
+    top: 0;
+    width: 340px;
+    opacity: 0.5;
+  }
+
   .identity {
     flex-direction: column;
     align-items: flex-start;
@@ -563,4 +589,24 @@ h1, h2, h3 {
   .site-nav nav {
     gap: 20px;
   }
+}
+
+/* ---------- 404 ---------- */
+
+.not-found {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 120px 24px 160px;
+}
+
+.not-found h1 {
+  font-size: clamp(40px, 6vw, 64px);
+  font-style: italic;
+  margin-bottom: 18px;
+}
+
+.not-found p {
+  max-width: 46ch;
+  font-size: 18px;
+  color: var(--ink-soft);
 }

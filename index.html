@@ -12,11 +12,9 @@
 <link rel="stylesheet" href="styles.css">
 <script>
   (function () {
-    try {
-      if (localStorage.getItem('theme') === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      }
-    } catch (e) {}
+    var t = 'dark';
+    try { t = localStorage.getItem('theme') || 'dark'; } catch (e) {}
+    document.documentElement.setAttribute('data-theme', t);
   })();
 </script>
 <script type="application/ld+json">
@@ -79,6 +77,7 @@
 <main>
 
   <section id="top" class="hero">
+    <canvas class="globe" aria-hidden="true"></canvas>
     <div class="hero-main">
       <div class="identity">
         <img src="pfp-ash.png" alt="Siddharth Kutty" class="avatar" width="220" height="268">
