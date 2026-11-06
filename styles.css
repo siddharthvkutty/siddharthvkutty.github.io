@@ -65,6 +65,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   50%  { transform: translate(-4vw, 5vw) scale(1.12); }
   100% { transform: translate(3vw, -3vw) scale(0.96); }
 }
+.bg-glow, .bg-wave { will-change: transform; } /* own compositor layers, so animating them doesn't repaint the page */
 .bg-waves { position: absolute; left: 0; bottom: 0; width: 200%; height: 45vh; min-height: 240px; }
 .bg-wave { fill: var(--accent); }
 .bg-wave-1 { opacity: 0.1; animation: wave-drift 28s linear infinite; }
@@ -83,6 +84,9 @@ main:focus { outline: none; }
   backdrop-filter: blur(20px) saturate(170%);
   box-shadow: inset 0 1px 0 var(--glass-hi), 0 10px 30px -14px var(--glass-shadow);
 }
+
+/* Small pills: same look, no blur (blurring ~20 small boxes over a moving background is costly). */
+.chips li, .contact-link, .btn-ghost { -webkit-backdrop-filter: none; backdrop-filter: none; }
 
 /* Cursor-follow shine on big glass panels (--mx/--my set in script.js). */
 .tile, .about-card { position: relative; }
@@ -181,6 +185,7 @@ main:focus { outline: none; }
 .node { padding: 7px 14px; border-radius: 8px; border: 1px solid var(--rule); color: var(--ink); background: var(--surface-2); }
 .node-accent { border-color: var(--accent); color: var(--accent); }
 .node-out { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 500; }
+.viz-note { margin-top: 6px; font-size: 11.5px; }
 .flow-line { width: 2px; height: 22px; border-radius: 2px; background: linear-gradient(var(--rule), var(--accent), var(--rule)); background-size: 100% 300%; animation: flow 2.2s linear infinite; }
 @keyframes flow { to { background-position: 0 -300%; } }
 
@@ -241,7 +246,7 @@ footer { padding-top: 28px; padding-bottom: 36px; border-top: 1px solid var(--ru
 
 /* ---------- Scroll reveal ---------- */
 
-.reveal-pending { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal-pending { opacity: 0; transform: translateY(10px); transition: opacity 0.3s ease-out, transform 0.3s ease-out; }
 .reveal-visible { opacity: 1; transform: none; }
 
 /* ---------- Responsive ---------- */

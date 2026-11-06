@@ -39,10 +39,10 @@ if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: re
       el.classList.remove('reveal-pending', 'reveal-visible');
       el.style.transitionDelay = '';
     }, { once: true });
-  }), { threshold: 0.15 });
+  }), { threshold: 0.05, rootMargin: '0px 0px -4% 0px' });
   document.querySelectorAll('.tile, .about-rows div, .about-card, .tech-group').forEach((el, i) => {
     el.classList.add('reveal-pending');
-    el.style.transitionDelay = `${(i % 4) * 70}ms`;
+    el.style.transitionDelay = `${(i % 3) * 30}ms`;
     reveal.observe(el);
   });
 }
