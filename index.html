@@ -5,18 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Siddharth Kutty</title>
 <meta name="description" content="Siddharth Kutty, security and ML student. Network intrusion detection, adversarial NLP evaluation, LLM fine-tuning.">
+<link rel="canonical" href="https://siddharthvkutty.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://siddharthvkutty.github.io/">
+<meta property="og:title" content="Siddharth Kutty">
+<meta property="og:description" content="Security and machine learning. Network intrusion detection, adversarial NLP evaluation, LLM fine-tuning.">
+<meta property="og:image" content="https://siddharthvkutty.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Siddharth Kutty">
+<meta name="twitter:description" content="Security and machine learning. Network intrusion detection, adversarial NLP evaluation, LLM fine-tuning.">
+<meta name="twitter:image" content="https://siddharthvkutty.github.io/og.png">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-<script>
-  (function () {
-    var t = 'dark';
-    try { t = localStorage.getItem('theme') || 'dark'; } catch (e) {}
-    document.documentElement.setAttribute('data-theme', t);
-  })();
-</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -34,174 +39,206 @@
 </head>
 <body>
 
-<header class="site-nav">
-  <a href="#top" class="wordmark">Siddharth Kutty</a>
-  <nav>
-    <a href="#work">Projects</a>
-    <span class="nav-preview">
-      <a href="https://github.com/siddharthvkutty" target="_blank" rel="noopener">GitHub</a>
-      <div class="preview-card" id="preview-github">
-        <img src="favicon.svg" alt="" class="preview-avatar" width="40" height="40">
-        <div class="preview-body">
-          <p class="preview-name">Siddharth Kutty</p>
-          <p class="preview-desc">GitHub profile</p>
-        </div>
-      </div>
-    </span>
-    <span class="nav-preview">
-      <a href="https://www.linkedin.com/in/siddharth-kutty-86a647397/" target="_blank" rel="noopener">LinkedIn</a>
-      <div class="preview-card">
-        <img src="favicon.svg" alt="" class="preview-avatar" width="40" height="40">
-        <div class="preview-body">
-          <p class="preview-name">Siddharth Kutty</p>
-          <p class="preview-desc">Security &amp; Machine Learning</p>
-        </div>
-      </div>
-    </span>
-    <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
-    <a href="#contact">Contact</a>
-    <button type="button" class="theme-toggle" aria-label="Switch to dark theme">
-      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454l0 .008" />
-      </svg>
-      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-        <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
-      </svg>
-    </button>
-  </nav>
-</header>
+<a class="skip-link" href="#top">Skip to content</a>
 
-<main>
+<div class="bg-layer" aria-hidden="true">
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+  <svg class="bg-waves" viewBox="0 0 3200 300" preserveAspectRatio="none">
+    <defs>
+      <path id="waveA" d="M0,120 C200,60 400,180 600,120 C800,60 1000,180 1200,120 C1350,80 1500,160 1600,120 L1600,300 L0,300 Z"/>
+      <path id="waveB" d="M0,160 C250,100 450,220 700,160 C900,110 1100,210 1350,150 C1450,130 1550,180 1600,160 L1600,300 L0,300 Z"/>
+    </defs>
+    <g class="bg-wave bg-wave-1"><use href="#waveA"/><use href="#waveA" x="1600"/></g>
+    <g class="bg-wave bg-wave-2"><use href="#waveB"/><use href="#waveB" x="1600"/></g>
+  </svg>
+</div>
 
-  <section id="top" class="hero">
+<nav class="site-nav" aria-label="Primary">
+  <div class="nav-inner">
+    <a href="#top" class="wordmark">Siddharth Kutty</a>
+    <div class="nav-links">
+      <a href="#work">Projects</a>
+      <a href="#about">About</a>
+      <a href="#stack">Stack</a>
+      <a href="#contact">Contact</a>
+      <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top" tabindex="-1">
+
+  <section class="hero">
     <canvas class="globe" aria-hidden="true"></canvas>
-    <div class="hero-main">
-      <div class="identity">
-        <img src="pfp-ash.png" alt="Siddharth Kutty" class="avatar" width="220" height="268">
-        <div class="identity-text">
-          <p class="eyebrow-plain">Security &amp; Machine Learning</p>
-          <h1>Siddharth Kutty</h1>
-          <p class="hero-lede">
-            I study how systems fail, from network intrusions to language
-            models under stress. Right now that means fine-tuning open models,
-            breaking NLP pipelines on purpose, and building small tools that
-            watch for what shouldn't be there.
-          </p>
+    <div class="identity">
+      <div class="avatar-frame">
+        <img class="avatar" src="pfp-ash.webp" alt="Siddharth Kutty" width="168" height="200">
+      </div>
+      <div class="hero-text">
+        <p class="eyebrow mono">Security &amp; Machine Learning</p>
+        <h1>Siddharth Kutty</h1>
+        <p class="hero-sub">I study how systems fail, from network intrusions to language models under stress, and build small tools that watch for what shouldn't be there.</p>
+        <p class="status mono"><span>fine-tuning open LLMs for code</span><span class="status-cursor" aria-hidden="true"></span></p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#work">View projects</a>
+          <a class="btn btn-ghost" href="resume.pdf" target="_blank" rel="noopener">Resume</a>
         </div>
       </div>
     </div>
-    <aside class="hero-focus" aria-label="Current focus areas">
-      <p class="focus-label">currently working on</p>
-      <ul class="focus-list">
-        <li><span>fine-tuning</span> open LLMs for code</li>
-        <li><span>stress-testing</span> NLP models</li>
-        <li><span>building</span> security &amp; dev tooling</li>
-      </ul>
-    </aside>
   </section>
 
+  <section class="section" id="work">
+    <h2>Projects</h2>
+    <p class="section-sub">From fine-tuning to model evaluation to security tooling.</p>
 
-  <section id="work" class="featured">
-    <h2>Featured work</h2>
+    <div class="bento">
+      <article class="tile tile-lg">
+        <div class="tile-body">
+          <span class="tile-stack mono">Python, LoRA / QLoRA, Transformers</span>
+          <h3>qwen-python-lora</h3>
+          <p>Fine-tuning Qwen2.5-Coder-7B with LoRA and QLoRA to sharpen its Python-specific ability, adapting a general coding model into one that's noticeably better at one language.</p>
+          <a class="tile-link" href="https://github.com/siddharthvkutty/qwen-python-lora" target="_blank" rel="noopener">Source<span aria-hidden="true"> &rarr;</span></a>
+        </div>
+        <div class="viz viz-flow" aria-hidden="true">
+          <span class="node">Qwen2.5-Coder-7B</span>
+          <span class="flow-line"></span>
+          <span class="node node-accent">+ LoRA adapter</span>
+          <span class="flow-line"></span>
+          <span class="node node-out">Python-tuned</span>
+        </div>
+      </article>
 
-    <article class="project-row">
-      <div class="project-main">
-        <h3>qwen-python-lora</h3>
-        <p>Fine-tuning Qwen2.5-Coder-7B with LoRA and QLoRA to sharpen its
-          Python-specific ability, adapting a general coding model into
-          one that's noticeably better at one language.</p>
-        <ul class="tags">
-          <li>Python</li>
-          <li>LoRA / QLoRA</li>
-          <li>Transformers</li>
-        </ul>
-      </div>
-      <div class="project-side">
-        <a class="repo-link" href="https://github.com/siddharthvkutty/qwen-python-lora" target="_blank" rel="noopener">View repository</a>
-      </div>
-    </article>
+      <article class="tile tile-lg">
+        <div class="tile-body">
+          <span class="tile-stack mono">Python, PyTorch, Transformers, Streamlit</span>
+          <h3>nlp-stress-test</h3>
+          <p>A stress test for three NLP models against linguistically difficult reviews: sarcasm, negation, and ambiguity, the kinds of inputs that expose where sentiment models quietly fall apart.</p>
+          <a class="tile-link" href="https://github.com/siddharthvkutty/nlp-stress-test" target="_blank" rel="noopener">Source<span aria-hidden="true"> &rarr;</span></a>
+        </div>
+        <div class="viz viz-grid" aria-hidden="true">
+          <span></span><span>sarcasm</span><span>negation</span><span>ambiguity</span>
+          <span class="row">BERT</span><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i>
+          <span class="row">RoBERTa</span><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i>
+          <span class="row">DistilBERT</span><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i>
+        </div>
+      </article>
 
-    <article class="project-row">
-      <div class="project-main">
-        <h3>nlp-stress-test</h3>
-        <p>A stress test for three NLP models against linguistically
-          difficult reviews: sarcasm, negation, and ambiguity, the kinds
-          of inputs that expose where sentiment models quietly fall apart.</p>
-        <ul class="tags">
-          <li>Python</li>
-          <li>NLP</li>
-          <li>Model evaluation</li>
-        </ul>
-      </div>
-      <div class="project-side">
-        <a class="repo-link" href="https://github.com/siddharthvkutty/nlp-stress-test" target="_blank" rel="noopener">View repository</a>
-      </div>
-    </article>
+      <article class="tile tile-lg">
+        <div class="tile-body">
+          <span class="tile-stack mono">Python, Ollama, tkinter</span>
+          <h3>log-inferer</h3>
+          <p>A small desktop tool that reads error logs and infers what's actually wrong with them using an LLM, turning a wall of stack traces into a plain-language diagnosis.</p>
+          <a class="tile-link" href="https://github.com/siddharthvkutty/log-inferer" target="_blank" rel="noopener">Source<span aria-hidden="true"> &rarr;</span></a>
+        </div>
+        <div class="viz viz-term" aria-hidden="true">
+          <p class="log">kernel: Out of memory: Killed process 4121</p>
+          <hr>
+          <p><span class="k">root cause</span>memory exhausted</p>
+          <p><span class="k">component</span>kernel / oom-killer</p>
+          <p><span class="k">confidence</span>high</p>
+        </div>
+      </article>
 
-    <article class="project-row">
-      <div class="project-main">
-        <h3>log-inferer</h3>
-        <p>A small desktop tool that reads error logs and infers what's
-          actually wrong with them using an LLM, turning a wall of
-          stack traces into a plain-language diagnosis.</p>
-        <ul class="tags">
-          <li>Python</li>
-          <li>LLM tooling</li>
-          <li>Desktop app</li>
-        </ul>
-      </div>
-      <div class="project-side">
-        <a class="repo-link" href="https://github.com/siddharthvkutty/log-inferer" target="_blank" rel="noopener">View repository</a>
-      </div>
-    </article>
+      <article class="tile">
+        <span class="tile-stack mono">Python, scapy, tkinter</span>
+        <h3>Network-IDS</h3>
+        <p>A Python-based network intrusion detection system.</p>
+        <a class="tile-link" href="https://github.com/siddharthvkutty/Network-IDS" target="_blank" rel="noopener">Source<span aria-hidden="true"> &rarr;</span></a>
+      </article>
+
+      <article class="tile">
+        <span class="tile-stack mono">Python, CLI</span>
+        <h3>password-audit-tool</h3>
+        <p>CLI password strength analyzer that simulates real-world attack strategies.</p>
+        <a class="tile-link" href="https://github.com/siddharthvkutty/password-audit-tool" target="_blank" rel="noopener">Source<span aria-hidden="true"> &rarr;</span></a>
+      </article>
+
+      <article class="tile">
+        <span class="tile-stack mono">Python, Flask</span>
+        <h3>permissioned-blockchain</h3>
+        <p>A self-contained permissioned blockchain network with a Flask web GUI.</p>
+        <a class="tile-link" href="https://github.com/siddharthvkutty/permissioned-blockchain" target="_blank" rel="noopener">Source<span aria-hidden="true"> &rarr;</span></a>
+      </article>
+
+      <article class="tile">
+        <span class="tile-stack mono">Python</span>
+        <h3>code-formatter</h3>
+        <p>Prettifies badly formatted code.</p>
+        <a class="tile-link" href="https://github.com/siddharthvkutty/code-formatter" target="_blank" rel="noopener">Source<span aria-hidden="true"> &rarr;</span></a>
+      </article>
+
+      <article class="tile">
+        <span class="tile-stack mono">Python, Discord</span>
+        <h3>jarvis-bot</h3>
+        <p>Personal Discord bot, maintained on and off.</p>
+        <a class="tile-link" href="https://github.com/siddharthvkutty/jarvis-bot" target="_blank" rel="noopener">Source<span aria-hidden="true"> &rarr;</span></a>
+      </article>
+    </div>
   </section>
 
-  <section class="other-work">
-    <h2>Other projects</h2>
-    <ul class="index-list">
-      <li>
-        <a href="https://github.com/siddharthvkutty/Network-IDS" target="_blank" rel="noopener">Network-IDS</a>
-        <span>A Python-based network intrusion detection system.</span>
-      </li>
-      <li>
-        <a href="https://github.com/siddharthvkutty/password-audit-tool" target="_blank" rel="noopener">password-audit-tool</a>
-        <span>CLI password strength analyzer that simulates real-world attack strategies.</span>
-      </li>
-      <li>
-        <a href="https://github.com/siddharthvkutty/permissioned-blockchain" target="_blank" rel="noopener">permissioned-blockchain</a>
-        <span>A self-contained permissioned blockchain network with a Flask web GUI.</span>
-      </li>
-      <li>
-        <a href="https://github.com/siddharthvkutty/code-formatter" target="_blank" rel="noopener">code-formatter</a>
-        <span>Prettifies badly formatted code.</span>
-      </li>
-      <li>
-        <a href="https://github.com/siddharthvkutty/jarvis-bot" target="_blank" rel="noopener">jarvis-bot</a>
-        <span>Personal Discord bot, maintained on and off.</span>
-      </li>
-    </ul>
+  <section class="section" id="about">
+    <h2>About</h2>
+    <div class="about-grid">
+      <dl class="about-rows">
+        <div><dt>Security tooling</dt><dd>Intrusion detection, password auditing and a permissioned blockchain, built to be usable, not just correct.</dd></div>
+        <div><dt>Model evaluation</dt><dd>Finding where NLP models quietly fail: sarcasm, negation and ambiguity.</dd></div>
+        <div><dt>LLM fine-tuning</dt><dd>Adapting open coding models with LoRA and QLoRA to get better at one language.</dd></div>
+      </dl>
+      <div class="about-card">
+        <h3>Approach</h3>
+        <div class="tab-row" role="tablist">
+          <button class="tab-btn active" role="tab" id="tab-break" aria-controls="panel-break" aria-selected="true" data-tab="break">Break</button>
+          <button class="tab-btn" role="tab" id="tab-measure" aria-controls="panel-measure" aria-selected="false" tabindex="-1" data-tab="measure">Measure</button>
+          <button class="tab-btn" role="tab" id="tab-build" aria-controls="panel-build" aria-selected="false" tabindex="-1" data-tab="build">Build</button>
+        </div>
+        <p class="tab-panel active" role="tabpanel" id="panel-break" aria-labelledby="tab-break">Break NLP pipelines on purpose, to see which inputs they can't handle.</p>
+        <p class="tab-panel" role="tabpanel" id="panel-measure" aria-labelledby="tab-measure" hidden>Put a number on the failure instead of guessing at it.</p>
+        <p class="tab-panel" role="tabpanel" id="panel-build" aria-labelledby="tab-build" hidden>Build small tools that watch for what shouldn't be there.</p>
+      </div>
+    </div>
   </section>
 
-  <section id="contact" class="contact">
-    <h2>Get in touch</h2>
-    <p>
-      Best way to reach me is
-      <a href="mailto:siddharthvkutty@gmail.com">email</a>,
-      or find the code at
-      <a href="https://github.com/siddharthvkutty" target="_blank" rel="noopener">github.com/siddharthvkutty</a>,
-      or connect on
-      <a href="https://www.linkedin.com/in/siddharth-kutty-86a647397/" target="_blank" rel="noopener">LinkedIn</a>.
-    </p>
+  <section class="section" id="stack">
+    <h2>Stack</h2>
+    <div class="tech-groups">
+      <div class="tech-group">
+        <h3>Languages</h3>
+        <ul class="chips"><li>Python</li><li>Rust</li><li>Java</li><li>Shell</li><li>HTML / CSS / JS</li></ul>
+      </div>
+      <div class="tech-group">
+        <h3>ML &amp; LLMs</h3>
+        <ul class="chips"><li>PyTorch</li><li>Transformers</li><li>scikit-learn</li><li>bitsandbytes</li><li>GPTQ</li><li>Ollama</li></ul>
+      </div>
+      <div class="tech-group">
+        <h3>Frameworks &amp; UI</h3>
+        <ul class="chips"><li>Flask</li><li>Streamlit</li><li>tkinter</li><li>matplotlib</li></ul>
+      </div>
+      <div class="tech-group">
+        <h3>Security &amp; networking</h3>
+        <ul class="chips"><li>scapy</li><li>Intrusion detection</li><li>Password auditing</li><li>Permissioned blockchain</li></ul>
+      </div>
+      <div class="tech-group">
+        <h3>Tools</h3>
+        <ul class="chips"><li>Linux</li><li>Git</li><li>Bash</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-sm" id="contact">
+    <h2>Contact</h2>
+    <p class="contact-lead">Email is the best way to reach me.</p>
+    <div class="contact-row">
+      <a class="contact-link" href="mailto:siddharthvkutty@gmail.com">siddharthvkutty@gmail.com</a>
+      <a class="contact-link" href="https://github.com/siddharthvkutty" target="_blank" rel="noopener">github.com/siddharthvkutty</a>
+      <a class="contact-link" href="https://www.linkedin.com/in/siddharth-kutty-86a647397/" target="_blank" rel="noopener">linkedin.com/in/siddharth-kutty</a>
+    </div>
   </section>
 
 </main>
 
-<footer class="site-footer">
-  <p>Built and deployed with GitHub Pages.</p>
-</footer>
+<footer>&copy; <span id="year"></span> Siddharth Kutty</footer>
 
 <script src="script.js"></script>
 </body>
