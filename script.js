@@ -1,24 +1,137 @@
-// Plain JS, no build step.
+// Plain JS, no build step. One scroll handler drives all the scroll-linked motion.
 
-document.getElementById('year').textContent = new Date().getFullYear();
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
-// Tabs
+$('#year').textContent = new Date().getFullYear();
+
+// Scroll-linked motion: the pinned hero sequence, parallax, stacking slabs, scrubbed words.
 (function () {
-  const tabs = [...document.querySelectorAll('.tab-btn')];
-  tabs.forEach((tab) => tab.addEventListener('click', () => {
-    tabs.forEach((t) => {
-      const on = t === tab;
-      t.classList.toggle('active', on);
-      t.setAttribute('aria-selected', on);
-      t.tabIndex = on ? 0 : -1;
-      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+  const beats = $$('.beat');
+  if (reduce) return; // beats stay fully lit, nothing moves
+
+  const hero = $('#hero'), stage = $('#stage'), name = $('#name'), copy = $('#heroCopy'), end = $('#heroEnd'), cue = $('.cue');
+  const lines = $$('#name .ln');
+  const pinned = matchMedia('(min-width: 801px) and (min-height: 601px)');
+  const fixed = $$('[data-k]'), panes = $$('[data-pk]'), slabs = $$('.slab');
+  const vizs = slabs.map((s) => $('.viz', s)), pebbleBox = $('.pebbles'), pebbles = $$('[data-sk]'), heads = $$('.h-xl');
+  const sticky = matchMedia('(min-width: 801px) and (min-height: 701px)');
+  const narrow = matchMedia('(max-width: 800px)'); // panes stack in one column here, so no drift
+  let tops = [], queued = false, wasPinned = false;
+
+  const measure = () => { tops = slabs.map((s) => parseFloat(getComputedStyle(s).top) || 0); };
+
+  // The hero is a title sequence: push in on the sphere, part the name, land the closing line.
+  function heroScene() {
+    if (!hero) return;
+    if (!pinned.matches) {
+      if (wasPinned) {
+        [stage, name, copy, end, cue, ...lines].forEach((el) => { el.style.cssText = ''; });
+        wasPinned = false;
+      }
+      return;
+    }
+    wasPinned = true;
+    const p = clamp(-hero.getBoundingClientRect().top / (hero.offsetHeight - innerHeight), 0, 1);
+
+    stage.style.scale = (1 + 0.95 * p).toFixed(3);
+    stage.style.translate = `-50% calc(-50% - ${(p * 7).toFixed(2)}vh)`;
+    stage.style.opacity = (1 - clamp((p - 0.5) / 0.4, 0, 1)).toFixed(3);
+
+    lines[0].style.translate = `${(-p * 16).toFixed(2)}vw 0`;
+    lines[1].style.translate = `${(p * 16).toFixed(2)}vw 0`;
+    name.style.opacity = (1 - clamp((p - 0.42) / 0.4, 0, 1)).toFixed(3);
+
+    const c = 1 - clamp((p - 0.12) / 0.3, 0, 1);
+    copy.style.opacity = c.toFixed(3);
+    copy.style.translate = `0 ${(-p * 50).toFixed(1)}px`;
+    copy.style.pointerEvents = c < 0.2 ? 'none' : '';
+
+    const q = clamp((p - 0.6) / 0.22, 0, 1);
+    end.style.opacity = q.toFixed(3);
+    end.style.translate = `0 ${((1 - q) * 36).toFixed(1)}px`;
+    end.style.filter = `blur(${((1 - q) * 10).toFixed(1)}px)`;
+
+    cue.style.visibility = p > 0.06 ? 'hidden' : ''; // its CSS animation owns opacity
+  }
+
+  function update() {
+    queued = false;
+    const vh = innerHeight, y = Math.min(scrollY, 1600);
+
+    heroScene();
+
+    fixed.forEach((el) => { el.style.translate = `0 ${(y * el.dataset.k).toFixed(1)}px`; });
+
+    // Panes read their parent's position, so their own translate can't feed back.
+    panes.forEach((el) => {
+      if (narrow.matches) { el.style.translate = ''; return; }
+      const r = el.parentElement.getBoundingClientRect();
+      if (r.bottom < -300 || r.top > vh + 300) return;
+      el.style.translate = `0 ${((r.top + r.height / 2 - vh / 2) * el.dataset.pk).toFixed(1)}px`;
     });
-  }));
+
+    beats.forEach((b) => {
+      const p = clamp((vh * 0.85 - b.getBoundingClientRect().top) / (vh * 0.5), 0, 1);
+      b.style.setProperty('--fill', `${(p * 100).toFixed(1)}%`);
+    });
+
+    // Slabs: the diagram drifts against the text, and a slab recedes (shrinks, tilts back, dims)
+    // as the next one slides over it. Dimming fades the content, never a blur, so it stays cheap.
+    slabs.forEach((s, i) => {
+      const viz = vizs[i];
+      if (!sticky.matches) {
+        s.style.scale = ''; s.style.rotate = ''; s.style.setProperty('--dim', '0');
+        if (viz) viz.style.translate = '';
+        return;
+      }
+      let p = 0;
+      if (i < slabs.length - 1) {
+        const h = s.offsetHeight;
+        const next = slabs[i + 1].getBoundingClientRect().top;
+        p = clamp((tops[i] + h - next) / (h - 18), 0, 1);
+        s.style.scale = (1 - 0.07 * p).toFixed(4);
+        s.style.rotate = `1 0 0 ${(-5 * p).toFixed(2)}deg`;
+        s.style.setProperty('--dim', (0.5 * p).toFixed(3));
+      }
+      if (viz) {
+        // Entering: the diagram trails the text, then settles. Receding: it sinks a little faster.
+        const enter = p === 0 ? clamp(s.getBoundingClientRect().top - tops[i], 0, vh) * 0.14 : 0;
+        viz.style.translate = `0 ${(enter + p * 34).toFixed(1)}px`;
+      }
+    });
+
+    // Smaller tools: each pebble drifts up into the grid by its own distance, then locks in.
+    if (pebbleBox) {
+      const q = narrow.matches ? 1 : clamp((vh * 0.92 - pebbleBox.getBoundingClientRect().top) / (vh * 0.75), 0, 1);
+      const e = Math.pow(1 - q, 1.6);
+      pebbles.forEach((el) => { el.style.translate = e ? `0 ${(e * el.dataset.sk).toFixed(1)}px` : ''; });
+    }
+
+    // Section titles arrive a touch slower than the content around them, then scroll normally.
+    // (Measured without our own offset, so the translate can't feed back into the measurement.)
+    heads.forEach((h) => {
+      if (narrow.matches) { h.style.translate = ''; h._t = 0; return; }
+      const nat = h.getBoundingClientRect().top - (h._t || 0);
+      if (nat > vh + 400 || nat < -600) return;
+      const t = -clamp((nat - vh * 0.38) * 0.14, 0, 90);
+      h._t = t;
+      h.style.translate = t ? `0 ${t.toFixed(1)}px` : '';
+    });
+  }
+
+  const queue = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
+  addEventListener('scroll', queue, { passive: true });
+  addEventListener('resize', () => { measure(); queue(); });
+  measure();
+  update();
 })();
 
-// Cursor-follow shine on glass panels (CSS reads --mx / --my)
+// Cursor-follow shine on glass panels (CSS reads --mx / --my).
 if (matchMedia('(hover: hover)').matches) {
-  document.querySelectorAll('.tile, .about-card').forEach((el) => {
+  $$('.shine').forEach((el) => {
     el.addEventListener('pointermove', (e) => {
       const r = el.getBoundingClientRect();
       el.style.setProperty('--mx', `${e.clientX - r.left}px`);
@@ -27,33 +140,47 @@ if (matchMedia('(hover: hover)').matches) {
   });
 }
 
-// Scroll reveal + nav scroll-spy
-if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  const reveal = new IntersectionObserver((entries, obs) => entries.forEach((e) => {
-    if (!e.isIntersecting) return;
-    const el = e.target;
-    el.classList.add('reveal-visible');
-    obs.unobserve(el);
-    // Drop the reveal classes once done so they don't slow or delay hover transitions.
-    el.addEventListener('transitionend', () => {
-      el.classList.remove('reveal-pending', 'reveal-visible');
-      el.style.transitionDelay = '';
-    }, { once: true });
-  }), { threshold: 0.05, rootMargin: '0px 0px -4% 0px' });
-  document.querySelectorAll('.tile, .about-rows div, .about-card, .tech-group').forEach((el, i) => {
-    el.classList.add('reveal-pending');
-    el.style.transitionDelay = `${(i % 3) * 30}ms`;
-    reveal.observe(el);
-  });
-}
+// Stack marquees: clone each list so the loop is seamless (the clone is hidden from screen readers).
+$$('.marquee .track').forEach((track) => {
+  const copy = track.firstElementChild.cloneNode(true);
+  copy.setAttribute('aria-hidden', 'true');
+  track.append(copy);
+});
 
-if ('IntersectionObserver' in window) {
-  const links = [...document.querySelectorAll('.nav-links a[href^="#"]')];
-  const spy = new IntersectionObserver((entries) => entries.forEach((e) => {
-    if (e.isIntersecting) links.forEach((l) => l.classList.toggle('active', l.hash === `#${e.target.id}`));
-  }), { rootMargin: '-45% 0px -50% 0px' });
-  links.forEach((l) => { const s = document.querySelector(l.hash); if (s) spy.observe(s); });
-}
+// Nav: a glass highlight springs to the hovered link, and rests on the current section.
+(function () {
+  const wrap = $('.nav-links'), slider = $('.nav-slider');
+  const links = $$('.nav-links a');
+  if (!wrap || !slider) return;
+  const anchors = links.filter((a) => a.hash);
+  let active = null;
+
+  const place = (a) => {
+    if (!a || !a.offsetWidth) { slider.style.opacity = 0; return; }
+    slider.style.opacity = 1;
+    slider.style.width = `${a.offsetWidth}px`;
+    slider.style.translate = `${a.offsetLeft}px 0`;
+  };
+  links.forEach((a) => {
+    a.addEventListener('pointerenter', () => place(a));
+    a.addEventListener('focus', () => place(a));
+  });
+  wrap.addEventListener('pointerleave', () => place(active));
+  wrap.addEventListener('focusout', () => place(active));
+
+  if ('IntersectionObserver' in window) {
+    const spy = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      active = anchors.find((a) => a.hash === `#${e.target.id}`) || null;
+      links.forEach((a) => a.classList.toggle('active', a === active));
+      place(active);
+    }), { rootMargin: '-45% 0px -50% 0px' });
+    anchors.forEach((a) => { const s = $(a.hash); if (s) spy.observe(s); });
+  }
+  const refresh = () => place(active);
+  addEventListener('resize', refresh);
+  if (document.fonts) document.fonts.ready.then(refresh);
+})();
 
 // Hero globe: dotted sphere with packets arcing between nodes. Canvas 2D, no deps.
 (function () {
@@ -67,8 +194,8 @@ if ('IntersectionObserver' in window) {
   let size = 0, R = 0, rot = 0.6, last = 0, running = false;
 
   const dots = [];
-  for (let i = 0; i < 1100; i++) {
-    const y = 1 - (2 * (i + 0.5)) / 1100;
+  for (let i = 0; i < 2400; i++) {
+    const y = 1 - (2 * (i + 0.5)) / 2400;
     const r = Math.sqrt(1 - y * y);
     const th = i * 2.39996323; // golden angle
     dots.push([Math.cos(th) * r, y, Math.sin(th) * r]);
